@@ -1,0 +1,299 @@
+IsThisLoss experiment journal
+
+1. 6/17/2018
+AdagradOptimizer
+learning_rate=0.005,
+steps=200,
+batch_size=15,
+hidden_units=[50, 50]
+
+Final accuracy (on validation data): 0.75
+Final log loss: 8.52
+
+- Adding more specific metrics (Accuracy, Recall, AUC)
+- Adding test data validation
+- Will rerun with same hyperparameters
+
+2. 6/17/2018
+AdagradOptimizer
+learning_rate=0.005,
+steps=200,
+batch_size=15,
+hidden_units=[50, 50]
+
+Final accuracy (on validation data): 0.73
+Final log loss: 9.21
+
+AUC on the test set: 0.92
+Accuracy on the test set: 0.78
+Precision on the test set: 0.71
+Recall on the test set: 0.96
+
+- Note that Trapezoidal rule creates poor AUCs.
+  - Switch to "careful_interpolation" is needed.
+  - Currently a library problem, unless I want to change how my current codebase works in total.
+  - Will work with less accurate AUC metric for now.
+- Will output images of first layer next to see how its appearing under the hood.
+
+3. 6/17/2018
+AdagradOptimizer
+learning_rate=0.005,
+steps=2000,
+batch_size=15,
+hidden_units=[50, 50]
+
+Final accuracy (on validation data): 0.81
+Final log loss: 6.68
+
+AUC on the test set: 0.93
+Accuracy on the test set: 0.83
+Precision on the test set: 0.75
+Recall on the test set: 0.98
+
+
+- First layer available as ExperimentCharts/ex3-layer1.PNG
+  - Some structure of the Loss meme definitively showing.
+- Increase in steps appeared to perform well. Will improve batch size next to aim for more improvement.
+
+5. 6/17/2018
+AdagradOptimizer
+learning_rate=0.005,
+steps=2000,
+batch_size=15,
+hidden_units=[50, 50]
+
+Final accuracy (on validation data): 0.76
+Final log loss: 8.17
+
+AUC on the test set: 0.91
+Accuracy on the test set: 0.81
+Precision on the test set: 0.74
+Recall on the test set: 0.96
+
+
+- Appears to have performed below that of the smaller batch size.
+- Will reduce to previous model and try a new Optimizer.
+
+6. 6/17/2018
+AdagradOptimizer
+learning_rate=0.005,
+steps=2000,
+batch_size=15,
+hidden_units=[50, 50]
+
+Final accuracy (on validation data): 0.76
+Final log loss: 8.17
+
+AUC on the test set: 0.91
+Accuracy on the test set: 0.81
+Precision on the test set: 0.74
+Recall on the test set: 0.96
+
+
+- Appears to have performed below that of the smaller batch size.
+- Will reduce to previous model and try a new Optimizer.
+
+7. 6/17/2018
+FtrlOptimizer
+learning_rate=0.005,
+steps=2000,
+batch_size=15,
+hidden_units=[50, 50],
+l2_regularization_strength=0.05
+
+
+Final accuracy (on validation data): 0.76
+Final log loss: 8.17
+
+AUC on the test set: 0.87
+Accuracy on the test set: 0.76
+Precision on the test set: 0.80
+Recall on the test set: 0.70
+
+
+- More precise, however less total accuracy.
+  - Will decrease l2_regularization_strength.
+
+8. 6/17/2018
+FtrlOptimizer
+learning_rate=0.005,
+steps=2000,
+batch_size=15,
+hidden_units=[50, 50],
+l2_regularization_strength=0.01
+
+
+Final accuracy (on validation data): 0.75
+Final log loss: 8.63
+
+AUC on the test set: 0.87
+Accuracy on the test set: 0.78
+Precision on the test set: 0.83
+Recall on the test set: 0.70
+
+9. 6/17/2018
+FtrlOptimizer
+learning_rate=0.005,
+steps=2000,
+batch_size=15,
+hidden_units=[50, 50],
+l2_regularization_strength=0.001
+
+
+Final accuracy (on validation data): 0.76
+Final log loss: 8.40
+
+AUC on the test set: 0.88
+Accuracy on the test set: 0.77
+Precision on the test set: 0.76
+Recall on the test set: 0.78
+
+- Appears to have hit a good state of regularization.
+- Will attempt to decrease learning rate to prevent overfitting.
+
+10. 6/17/2018
+FtrlOptimizer
+learning_rate=0.001,
+steps=2000,
+batch_size=15,
+hidden_units=[50, 50],
+l2_regularization_strength=0.001
+
+
+Final accuracy (on validation data): 0.69
+Final log loss: 10.59
+
+AUC on the test set: 0.88
+Accuracy on the test set: 0.71
+Precision on the test set: 0.64
+Recall on the test set: 0.96
+
+- Appears that the reduced learning rate didn't help...
+- Will attempt to increase learning rate instead.
+
+11. 6/17/2018
+FtrlOptimizer
+learning_rate=0.01,
+steps=2000,
+batch_size=15,
+hidden_units=[50, 50],
+l2_regularization_strength=0.01
+
+
+Final accuracy (on validation data): 0.74
+Final log loss: 9.1
+
+AUC on the test set: 0.85
+Accuracy on the test set: 0.76
+Precision on the test set: 0.72
+Recall on the test set: 0.84
+
+- Will jump back to Adagrad, and try to adjust hyperparameters from there.
+
+12. 6/17/2018
+AdagradOptimizer
+learning_rate=0.01,
+steps=2000,
+batch_size=15,
+hidden_units=[50, 50]
+
+
+Final accuracy (on validation data): 0.82
+Final log loss: 6.33
+
+AUC on the test set: 0.92
+Accuracy on the test set: 0.84
+Precision on the test set: 0.81
+Recall on the test set: 0.88
+
+- Pretty good. Will double the steps, for curiosities sake.
+
+13. 6/17/2018
+AdagradOptimizer
+learning_rate=0.01,
+steps=4000,
+batch_size=15,
+hidden_units=[50, 50]
+
+
+Final accuracy (on validation data): 0.79
+Final log loss: 7.19
+
+AUC on the test set: 0.88
+Accuracy on the test set: 0.85
+Precision on the test set: 0.83
+Recall on the test set: 0.88
+
+- Layers appear noisy. Reducing number.
+
+14. 6/17/2018
+AdagradOptimizer
+learning_rate=0.01,
+steps=4000,
+batch_size=15,
+hidden_units=[20, 20]
+
+
+Final accuracy (on validation data): 0.75
+Final log loss: 8.63
+
+AUC on the test set: 0.91
+Accuracy on the test set: 0.81
+Precision on the test set: 0.78
+Recall on the test set: 0.86
+
+- Reducing number of layers didn't reduce noise. Increasing number of layers.
+
+15. 6/17/2018
+AdagradOptimizer
+learning_rate=0.01,
+steps=4000,
+batch_size=15,
+hidden_units=[100, 100]
+
+
+Final accuracy (on validation data): 0.69
+Final log loss: 10.71
+
+AUC on the test set: 0.88
+Accuracy on the test set: 0.76
+Precision on the test set: 0.93
+Recall on the test set: 0.56
+
+- Increasing number of layers simply increased the number of noisy layers.
+- Will reduce to 50 and try the GradientDescentOptimizer.
+
+16. 6/17/2018
+GradientDescentOptimizer
+learning_rate=0.005,
+steps=4000,
+batch_size=15,
+hidden_units=[50, 50]
+
+
+Final accuracy (on validation data): 0.76
+Final log loss: 8.17
+
+AUC on the test set: 0.91
+Accuracy on the test set: 0.82
+Precision on the test set: 0.80
+Recall on the test set: 0.86
+
+- First layer available as ExperimentCharts/ex3-layer1.PNG
+  - Looks entirely like noise. May continue adjusting hyperparameters to attempt further findings.
+
+17. 6/17/2018
+GradientDescentOptimizer
+learning_rate=0.0075,
+steps=4000,
+batch_size=15,
+hidden_units=[50, 50]
+
+
+Final accuracy (on validation data): 0.78
+Final log loss: 7.71
+
+AUC on the test set: 0.88
+Accuracy on the test set: 0.85
+Precision on the test set: 0.81
+Recall on the test set: 0.92
