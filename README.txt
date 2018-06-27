@@ -5,3 +5,7 @@ Images resized using script by John Ottenlips at https://stackoverflow.com/quest
 CSV Files generated with reference from James Kellas at https://www.quora.com/How-can-my-pixel-data-from-an-image-be-outputted-into-a-CSV-file-like-this-in-Python
 
 Machine Learning Python code created with reference from https://developers.google.com/machine-learning/crash-course/
+
+GroupMe bot made with inspiration from Stephen Waddell.
+
+GroupMe bot made using tutorial from http://sweb.uky.edu/~jtba252/index.php/2017/09/13/how-to-write-a-groupme-bot-using-python/

@@ -297,3 +297,21 @@ AUC on the test set: 0.88
 Accuracy on the test set: 0.85
 Precision on the test set: 0.81
 Recall on the test set: 0.92
+
+17. 6/26/2018
+Added saving feature!
+
+GradientDescentOptimizer
+learning_rate=0.0075,
+steps=4000,
+batch_size=15,
+hidden_units=[50, 50]
+
+
+Final accuracy (on validation data): 0.78
+Final log loss: 7.71
+
+AUC on the test set: 0.88
+Accuracy on the test set: 0.85
+Precision on the test set: 0.81
+Recall on the test set: 0.92

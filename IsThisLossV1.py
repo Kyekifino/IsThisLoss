@@ -140,47 +140,57 @@ def train_nn_classification_model(
   return classifier
 #------------------------------------------------------------------------------------------------
 
-# Printing often, for entertainment! :)
-print("Reading in your data...")
-picture_dataframe = pd.read_csv(
-    "TrainingDataNCG.csv",
-    sep = ",",
-    header = None)
-print("DONE!")
+def getIsThisLossModel():
+    # Printing often, for entertainment! :)
+    print("Reading in your data...")
+    picture_dataframe = pd.read_csv(
+        "TrainingDataNCG.csv",
+        sep = ",",
+        header = None)
+    print("DONE!")
 
 
-print("Reordering your data...")
-picture_dataframe = picture_dataframe.reindex(np.random.permutation(picture_dataframe.index))
-print("DONE!")
+    print("Reordering your data...")
+    picture_dataframe = picture_dataframe.reindex(np.random.permutation(picture_dataframe.index))
+    print("DONE!")
 
-training_targets, training_examples = helper.parse_labels_and_features(picture_dataframe[:1100])
-validation_targets, validation_examples = helper.parse_labels_and_features(picture_dataframe[1100:1400])
+    training_targets, training_examples = helper.parse_labels_and_features(picture_dataframe[:1100])
+    validation_targets, validation_examples = helper.parse_labels_and_features(picture_dataframe[1100:1400])
 
-classifier = train_nn_classification_model(
-    learning_rate=0.0075,
-    steps=4000,
-    batch_size=15,
-    hidden_units=[50, 50],
-    training_examples=training_examples,
-    training_targets=training_targets,
-    validation_examples=validation_examples,
-    validation_targets=validation_targets,
-    periods=5)
+    classifier = train_nn_classification_model(
+        learning_rate=0.0075,
+        steps=5,
+        batch_size=15,
+        hidden_units=[50, 50],
+        training_examples=training_examples,
+        training_targets=training_targets,
+        validation_examples=validation_examples,
+        validation_targets=validation_targets,
+        periods=1)
 
-print("Reading in your test data...")
-test_dataframe = pd.read_csv(
-    "TestDataNCG.csv",
-    sep = ",",
-    header = None)
-print("DONE!")
+    print("Reading in your test data...")
+    test_dataframe = pd.read_csv(
+        "TestDataNCG.csv",
+        sep = ",",
+        header = None)
+    print("DONE!")
 
-test_targets, test_examples = helper.parse_labels_and_features(test_dataframe)
-predict_test_input_fn = helper.create_predict_input_fn(
-    test_examples, test_targets, batch_size=50)
+    test_targets, test_examples = helper.parse_labels_and_features(test_dataframe)
+    predict_test_input_fn = helper.create_predict_input_fn(
+        test_examples, test_targets, batch_size=50)
 
-evaluation_metrics = classifier.evaluate(input_fn=predict_test_input_fn)
+    evaluation_metrics = classifier.evaluate(input_fn=predict_test_input_fn)
 
-print("AUC on the test set: %0.2f" % evaluation_metrics['auc'])
-print("Accuracy on the test set: %0.2f" % evaluation_metrics['accuracy'])
-print("Precision on the test set: %0.2f" % evaluation_metrics['precision'])
-print("Recall on the test set: %0.2f" % evaluation_metrics['recall'])
+    print("AUC on the test set: %0.2f" % evaluation_metrics['auc'])
+    print("Accuracy on the test set: %0.2f" % evaluation_metrics['accuracy'])
+    print("Precision on the test set: %0.2f" % evaluation_metrics['precision'])
+    print("Recall on the test set: %0.2f" % evaluation_metrics['recall'])
+
+    save = input("\nWould you like to use the model? (y/n)")
+    while save != "y" and save != "n":
+        save = input("Not a valid answer.\nWould you like to save the model? (y/n)\n")
+    if save == "y":
+        return classifier, evaluation_metrics['accuracy']
+    else:
+        #Try again!
+        return getIsThisLossModel()
