@@ -6,6 +6,7 @@ import os
 import IsThisLossV1 as loss
 import tensorflow as tf
 import numpy as np
+import pandas as pd
 from PIL import Image
 from io import BytesIO
 
@@ -48,23 +49,29 @@ while True:
                         # Make image grayscale
                         img = img.convert('LA')
                         # Create array of image info
-                        pic_array = []
+                        pic_array = [[]]
                         width, height = img.size
                         data = img.load()
+                        pic_array[0].append(0)
                         for y in range(height):
                             for x in range(width):
-                                pic_array.append(data[x,y][0])
-                        # TODO: Feed in picture, and make it actually predict.
-                        new_sample = np.array(pic_array, dtype=np.float32)
-                        predict_input_fn = tf.estimator.inputs.numpy_input_fn(
-                            x={"pixels": new_sample},
-                            num_epochs=1,
-                            shuffle=False)
+                                pic_array[0].append(data[x,y][0])
+                        df = pd.DataFrame(data=pic_array)
+                        prediction_targets, prediction_examples = helper.parse_labels_and_features(df)
+                        predict_input_fn = helper.create_predict_input_fn(
+                          prediction_examples, prediction_targets, 1)
                         predictions = list(classifier.predict(input_fn=predict_input_fn))
                         predicted_classes = [p["classes"] for p in predictions]
+                        print(predictions)
                         for c in predicted_classes:
-                            print(c)
-                            post_params = { 'bot_id' : conf.bot_id(), 'text': "Cute" }
+                            predicted_class = str(c[0])
+                            if predicted_class == "b\'1\'":
+                                text = "Is this loss?"
+                                print(predicted_class)
+                            else:
+                                text = "Hmmm..."
+                                print(predicted_class)
+                            post_params = { 'bot_id' : conf.bot_id(), 'text': text }
                             requests.post('https://api.groupme.com/v3/bots/post', params = post_params)
                         pics += 1
                 if pics == 0:

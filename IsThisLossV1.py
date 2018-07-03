@@ -148,7 +148,7 @@ def getIsThisLossModel():
         sep = ",",
         header = None)
     print("DONE!")
-
+    print(picture_dataframe)
 
     print("Reordering your data...")
     picture_dataframe = picture_dataframe.reindex(np.random.permutation(picture_dataframe.index))
@@ -159,14 +159,14 @@ def getIsThisLossModel():
 
     classifier = train_nn_classification_model(
         learning_rate=0.0075,
-        steps=5,
+        steps=4000,
         batch_size=15,
         hidden_units=[50, 50],
         training_examples=training_examples,
         training_targets=training_targets,
         validation_examples=validation_examples,
         validation_targets=validation_targets,
-        periods=1)
+        periods=5)
 
     print("Reading in your test data...")
     test_dataframe = pd.read_csv(
