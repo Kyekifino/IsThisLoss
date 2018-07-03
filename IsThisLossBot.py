@@ -84,10 +84,10 @@ while True:
                         if predicted_class == "b\'1\'":
                             text = "Is this loss?"
                             print(predicted_class)
+                            post_params = { 'bot_id' : conf.bot_id(), 'text': text }
+                            requests.post('https://api.groupme.com/v3/bots/post', params = post_params)
                         else:
                             print(predicted_class)
-                        post_params = { 'bot_id' : conf.bot_id(), 'text': text }
-                        requests.post('https://api.groupme.com/v3/bots/post', params = post_params)
             request_params['after_id'] = message['id']
 
     time.sleep(1)
