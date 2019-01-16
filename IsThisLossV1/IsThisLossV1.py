@@ -144,7 +144,7 @@ def getIsThisLossModel():
     # Printing often, for entertainment! :)
     print("Reading in your data...")
     picture_dataframe = pd.read_csv(
-        "TrainingDataNCG.csv",
+        "../TrainingDataNCG.csv",
         sep = ",",
         header = None)
     print("DONE!")
@@ -170,7 +170,7 @@ def getIsThisLossModel():
 
     print("Reading in your test data...")
     test_dataframe = pd.read_csv(
-        "TestDataNCG.csv",
+        "../TestDataNCG.csv",
         sep = ",",
         header = None)
     print("DONE!")
