@@ -15,7 +15,7 @@
 from PIL import Image
 import os, sys
 
-path = os.path.join("Media", "750RawPics")
+path = os.path.normpath(os.path.join(os.getcwd(), "..", "Media", "750RawMemes"))
 dirs = os.listdir( path )
 final_size = 100;
 
@@ -37,10 +37,11 @@ def resize():
                 im = im.resize(new_image_size, Image.ANTIALIAS)
                 new_im = Image.new("RGB", (final_size, final_size))
                 new_im.paste(im, ((final_size-new_image_size[0])//2, (final_size-new_image_size[1])//2))
-                new_im.save(os.path.join("Media", "750ResizedPics", "pic-small-" + item), 'JPEG', quality=90)
+                new_im.save(os.path.normpath(os.path.join(os.getcwd(), "..", "Media", "750ResizedMemes", "pic-small-" + item)), 'JPEG', quality=90)
                 print(str(i) + ": " + str(item) + " successfully resized.")
                 succ += 1
-            except:
+            except Exception as err:
+                print("Error {0}".format(str(err)))
                 print(str(i) + ": Error on item " + str(item))
                 fail += 1
         else:

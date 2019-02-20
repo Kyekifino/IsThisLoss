@@ -14,33 +14,34 @@
 
 from PIL import Image
 import os, sys
+import numpy as np
 
-def CreateCSV(csv_type):
-    path = os.path.join("Data", "NonConvolutionalGray", csv_type)
+def CreateCSV():
+    path = os.path.normpath(os.path.join(os.getcwd(), "..", "Data", "ConvolutionalColor"))
     dirs = os.listdir( path )
     i = 0
     succ = 0
-    with open(csv_type + 'DataNCG.csv', 'w+') as f:
+    with open('DataCC.csv', 'w+') as f:
         for item in dirs:
             i += 1
             try:
                 image = Image.open(os.path.join(path, item))
+                print(str(i) + ": " + str(item) + " successfully written.")
                 if item.startswith("pic-"):
                     f.write('0')
                 else:
                     f.write('1')
-                width, height = image.size
-                data = image.load()
-                for y in range(height):
-                    for x in range(width):
-                        f.write(',' + str(data[x,y][0]))
+                pic_data = np.array(image).flatten()
+                for datum in pic_data:
+                    f.write(',' + str(datum))
                 f.write('\n')
                 succ += 1
                 print(str(i) + ": " + str(item) + " successfully written.")
-            except:
+            except Exception as err:
+                print("Error {0}".format(str(err)))
                 print(str(i) + ": Error on " + str(item) + "!")
-    print(csv_type + " data complete!")
+                quit()
+    print("Data complete!")
     print(str(succ) + " successful data additions!")
 
-CreateCSV("Training")
-CreateCSV("Test")
+CreateCSV()

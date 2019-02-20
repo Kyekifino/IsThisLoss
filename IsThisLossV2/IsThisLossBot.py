@@ -60,11 +60,9 @@ while True:
                     new_im = Image.new("RGB", (final_size, final_size))
                     new_im.paste(img, (0, 0))
                     img = new_im
-                    # Make image grayscale
-                    img = img.convert('L')
                     # Create array of image info
                     data = (np.array(img) / 255)
-                    data = data.reshape(1, 100, 100, 1)
+                    data = data.reshape(1, 100, 100, 3)
                     predicted_classes = classifier.predict(data)
                     for c in predicted_classes:
                         print(c)
